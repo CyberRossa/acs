@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.controller.LoginController"
+            prefWidth="1048" prefHeight="587" style="-fx-background-color: #4b5c80;">
+    <!-- Logo -->
+    <ImageView layoutX="20" layoutY="20" fitWidth="80" fitHeight="40" preserveRatio="true">
+        <image>
+            <Image url="@/images/acs_logo.png" />
+        </image>
+    </ImageView>
+
+    <!-- Saat -->
+    <Label layoutX="500" layoutY="30" text="10:00" textFill="white" style="-fx-font-family: 'Arial'; -fx-font-size: 24;" />
+
+    <!-- Dil Seçimi -->
+    <ImageView layoutX="980" layoutY="20" fitWidth="40" fitHeight="30" preserveRatio="true">
+        <image>
+            <Image url="@/images/acs_logo.png" />
+        </image>
+    </ImageView>
+
+    <!-- Welcome Başlık -->
+    <Label layoutX="460" layoutY="150" text="Welcome" textFill="white" style="-fx-font-family: 'Arial'; -fx-font-size: 30;" />
+
+    <!-- Giriş Kutusu -->
+    <VBox layoutX="370" layoutY="220" spacing="15">
+
+        <HBox spacing="10">
+            <Label text="User Name :" textFill="white" />
+            <TextField fx:id="usernameField" prefWidth="200" />
+        </HBox>
+
+        <HBox spacing="10">
+            <Label text="Password :" textFill="white" />
+            <PasswordField fx:id="passwordField" prefWidth="200" />
+        </HBox>
+
+        <Button fx:id="loginButton" text="OK" prefWidth="100" style="-fx-background-color: #8894b2; -fx-text-fill: white; -fx-background-radius: 15;" />
+    </VBox>
+
+    <!-- Yardım İkonu -->
+    <Label layoutX="1020" layoutY="550" text="?" textFill="white" style="-fx-font-family: 'Arial'; -fx-font-size: 24;" />
+
+
+
+</AnchorPane>

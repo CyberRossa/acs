@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.controller.IcmalController"
+            prefWidth="848" prefHeight="587" style="-fx-background-color: #4b5c80;">
+
+    <VBox layoutX="30" layoutY="30" spacing="15">
+        <Label text="İCMAL" textFill="white" style="-fx-font-size: 24; -fx-font-weight: bold;" />
+
+        <HBox spacing="10" padding="5">
+            <Label text="Proje:"/>
+            <Label fx:id="projectNameLabel" style="-fx-font-weight:bold"/>
+            <Label text="Müşteri:"/>
+            <Label fx:id="clientNameLabel" style="-fx-font-weight:bold"/>
+        </HBox>
+
+        <TableView fx:id="icmalTable" VBox.vgrow="ALWAYS" prefWidth="780" prefHeight="450">
+            <columns>
+                <TableColumn fx:id="colDevice" text="Cihaz" prefWidth="150" />
+                <TableColumn fx:id="colCapacity" text="Kapasite" prefWidth="100" />
+                <TableColumn fx:id="colAirflow" text="Debi" prefWidth="100" />
+                <TableColumn fx:id="colPower" text="Güç" prefWidth="100" />
+                <TableColumn fx:id="colPrice" text="Fiyat" prefWidth="100" />
+                <TableColumn fx:id="colTotal" text="Maliyet" prefWidth="100" />
+            </columns>
+        </TableView>
+
+        <HBox spacing="20">
+            <Button fx:id="exportButton" text="Raporu Dışa Aktar" prefWidth="200" style="-fx-background-color: #8894b2; -fx-text-fill: white; -fx-background-radius: 15;" />
+            <Button fx:id="genelIcmalButton" text="GENEL İCMAL" prefWidth="200" style="-fx-background-color: #ffaa00; -fx-text-fill: white; -fx-background-radius: 15;" />
+            <Button fx:id="saveReportButton" text="KAYDET" prefWidth="150" style="-fx-background-color: #00aa88; -fx-text-fill: white; -fx-background-radius: 15;" />
+        </HBox>
+
+        <StackPane fx:id="detailPane" VBox.vgrow="ALWAYS"/>
+    </VBox>
+
+</AnchorPane>

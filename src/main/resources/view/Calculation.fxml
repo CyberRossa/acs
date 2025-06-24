@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.controller.CalculationController"
+            prefWidth="848" prefHeight="587" style="-fx-background-color: #4b5c80;">
+
+    <!-- ScrollPane ile dikey kaydırma sağlar -->
+    <ScrollPane fitToWidth="true" fitToHeight="true"
+                AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+                AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+        <content>
+            <GridPane hgap="10" vgap="10"  style="-fx-background-color:#4b5c80">
+                <padding>
+                    <Insets top="20" right="20" bottom="20" left="20"/>
+                </padding>
+                <!-- Eşit paylaştırılmış 4 kolon -->
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="25"/>
+                    <ColumnConstraints percentWidth="25"/>
+                    <ColumnConstraints percentWidth="25"/>
+                    <ColumnConstraints percentWidth="25"/>
+                </columnConstraints>
+                <!-- Otomatik satır yüksekliği -->
+                <rowConstraints>
+                    <!-- create as many as you need, or rely on COMPUTED_SIZE -->
+                    <RowConstraints vgrow="NEVER"/>
+                </rowConstraints>
+
+                <!-- 0. satır: Proje ve Müşteri -->
+                <Label text="Proje Adı:"         GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="projectField"  GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                <Label text="Müşteri Adı:"       GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                <TextField fx:id="clientField"   GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+
+                <!-- 1. satır: Ülke / Şehir -->
+                <Label text="Ülke:"              GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="countryBox"     GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                <Label text="Şehir:"             GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                <ComboBox fx:id="cityBox"        GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+
+                <!-- 2. satır: Mahal / Width -->
+                <Label text="Mahal:"             GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="mahalBox"       GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                <Label text="Width (m):"         GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+                <TextField fx:id="widthField"    GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+
+                <!-- 3. satır: Depth / Height -->
+                <Label text="Depth (m):"         GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <TextField fx:id="depthField"    GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                <Label text="Height (m):"        GridPane.rowIndex="3" GridPane.columnIndex="2"/>
+                <TextField fx:id="heightField"   GridPane.rowIndex="3" GridPane.columnIndex="3"/>
+
+                <!-- 4. satır: Kişi Sayısı / Yaz Şartı -->
+                <Label text="Kişi Sayısı:"        GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                <TextField fx:id="personField"    GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                <Label text="Yaz Şartı (°C):"     GridPane.rowIndex="4" GridPane.columnIndex="2"/>
+                <TextField fx:id="summerField"    GridPane.rowIndex="4" GridPane.columnIndex="3"/>
+
+                <!-- 5. satır: Kış Şartı / Toplam Debi -->
+                <Label text="Kış Şartı (°C):"     GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                <TextField fx:id="winterField"    GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+             <!--   <Label text="Top. Debi (m³/h):"   GridPane.rowIndex="5" GridPane.columnIndex="2"/>
+                <TextField fx:id="totalAirField"  GridPane.rowIndex="5" GridPane.columnIndex="3"/> -->
+
+                <!-- 6. satır: Taze Hava % / m³/h
+                <Label text="Taze Hava %:"        GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+                <TextField fx:id="freshAirPctField" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+                <Label text="Taze Hava m³/h:"     GridPane.rowIndex="6" GridPane.columnIndex="2"/>
+                <TextField fx:id="freshAirVolField" GridPane.rowIndex="6" GridPane.columnIndex="3"/>-->
+
+                <!-- 7. satır: Yaz Üfleme / Kış Üfleme -->
+                <Label text="Yaz Üfleme (°C):"    GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+                <TextField fx:id="summerSupplyField" GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+                <Label text="Kış Üfleme (°C):"    GridPane.rowIndex="7" GridPane.columnIndex="2"/>
+                <TextField fx:id="winterSupplyField" GridPane.rowIndex="7" GridPane.columnIndex="3"/>
+
+                <!-- 8. satır: İç Ortam Sıcaklığı / Toplam Yük -->
+                <Label text="İç Ortam (°C):"      GridPane.rowIndex="8" GridPane.columnIndex="0"/>
+                <TextField fx:id="internalTempField" GridPane.rowIndex="8" GridPane.columnIndex="1"/>
+             <!--   <Label text="Toplam Yük (kW):"    GridPane.rowIndex="8" GridPane.columnIndex="2"/>
+                <TextField fx:id="totalLoadField" GridPane.rowIndex="8" GridPane.columnIndex="3"/>-->
+
+                <!-- 9. satır: 2. Filtre / Susturucu -->
+                <Label text="2. Filtre:"          GridPane.rowIndex="9" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="filter2Box"     GridPane.rowIndex="9" GridPane.columnIndex="1"/>
+                <Label text="Susturucu:"         GridPane.rowIndex="9" GridPane.columnIndex="2"/>
+                <CheckBox fx:id="silencerCheck"  GridPane.rowIndex="9" GridPane.columnIndex="3"/>
+
+                <!-- 10. satır: Manuel Taze Hava / Egzost Debi -->
+                <Label text="Manuel TazeHava:"    GridPane.rowIndex="10" GridPane.columnIndex="0"/>
+                <CheckBox fx:id="manualFreshCheck" GridPane.rowIndex="10" GridPane.columnIndex="1"/>
+                <Label text="Egzost Debi:"        GridPane.rowIndex="10" GridPane.columnIndex="2"/>
+                <TextField fx:id="exhaustField"   GridPane.rowIndex="10" GridPane.columnIndex="3"/>
+
+                <!-- 11. satır: 3. Filtre / Cihaz Modeli -->
+                <Label text="3. Filtre:"          GridPane.rowIndex="11" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="filter3Box"     GridPane.rowIndex="11" GridPane.columnIndex="1"/>
+                <Label text="Cihaz Modeli:"       GridPane.rowIndex="11" GridPane.columnIndex="2"/>
+                <ComboBox fx:id="modelBox"       GridPane.rowIndex="11" GridPane.columnIndex="3"/>
+
+                <!-- 12. satır: TazeHava Cihazı -->
+                <Label text="TazeHava Cihazı:"    GridPane.rowIndex="12" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="freshDeviceBox" GridPane.rowIndex="12" GridPane.columnIndex="1"/>
+
+                <!-- 13. satır: Hesapla Butonu -->
+                <Button fx:id="calculateButton" text="Hesapla"
+                        GridPane.rowIndex="13" GridPane.columnIndex="3"
+                        prefWidth="120"
+                        style="-fx-background-color:#8894b2; -fx-text-fill:white; -fx-background-radius:15"/>
+            </GridPane>
+        </content>
+    </ScrollPane>
+</AnchorPane>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.controller.ReportController"
+            prefWidth="848" prefHeight="587" style="-fx-background-color: #4b5c80;">
+
+    <VBox layoutX="50" layoutY="30" spacing="15">
+        <Label text="Hesaplama Raporu" textFill="white" style="-fx-font-size: 24; -fx-font-weight: bold;" />
+
+        <HBox spacing="10">
+            <Label text="Proje Adı:" textFill="white" />
+            <Label fx:id="projectNameLabel" text="-" textFill="white" />
+        </HBox>
+
+        <HBox spacing="10">
+            <Label text="Mahal:" textFill="white" />
+            <Label fx:id="mahalNameLabel" text="-" textFill="white" />
+        </HBox>
+
+        <HBox spacing="10">
+            <Label text="Enthalpy:" textFill="white" />
+            <Label fx:id="enthalpyLabel" text="-" textFill="white" />
+        </HBox>
+
+        <HBox spacing="10">
+            <Label text="Heating Load:" textFill="white" />
+            <Label fx:id="heatingLoadLabel" text="-" textFill="white" />
+        </HBox>
+
+        <HBox spacing="10">
+            <Label text="Cooling Load:" textFill="white" />
+            <Label fx:id="coolingLoadLabel" text="-" textFill="white" />
+        </HBox>
+
+        <HBox spacing="10">
+            <Label text="Automation Power:" textFill="white" />
+            <Label fx:id="automationPowerLabel" text="-" textFill="white" />
+        </HBox>
+
+    </VBox>
+
+</AnchorPane>

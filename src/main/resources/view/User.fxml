@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.controller.UserController"
+            prefWidth="848" prefHeight="587" style="-fx-background-color: #4b5c80;">
+
+    <VBox layoutX="50" layoutY="50" spacing="20">
+        <Label text="KULLANICI YÖNETİMİ" textFill="white" style="-fx-font-size: 24; -fx-font-weight: bold;" />
+
+        <TableView fx:id="userTable" prefWidth="780" prefHeight="300">
+            <columns>
+                <TableColumn fx:id="colUsername" text="Kullanıcı Adı" prefWidth="200" />
+                <TableColumn fx:id="colRole" text="Yetki" prefWidth="100" />
+            </columns>
+        </TableView>
+
+        <HBox spacing="10">
+            <Label text="Kullanıcı Adı:" textFill="white" />
+            <TextField fx:id="usernameField" prefWidth="150" />
+
+            <Label text="Şifre:" textFill="white" />
+            <PasswordField fx:id="passwordField" prefWidth="150" />
+
+            <Label text="Yetki:" textFill="white" />
+            <ComboBox fx:id="roleCombo" prefWidth="100" />
+        </HBox>
+
+        <HBox spacing="20">
+            <Button fx:id="addUserButton" text="Ekle" prefWidth="150" style="-fx-background-color: #00aa88; -fx-text-fill: white; -fx-background-radius: 15;" />
+            <Button fx:id="deleteUserButton" text="Sil" prefWidth="150" style="-fx-background-color: #d9534f; -fx-text-fill: white; -fx-background-radius: 15;" />
+        </HBox>
+
+    </VBox>
+</AnchorPane>

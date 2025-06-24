@@ -1,0 +1,66 @@
+.root {
+    -fx-background-color: #3f4b81;
+}
+
+.title {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.label {
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+}
+
+.clock {
+    -fx-text-fill: white;
+    -fx-font-family: "Digital-7 Mono";
+    -fx-font-size: 24px;
+}
+
+.help {
+    -fx-font-size: 20px;
+    -fx-text-fill: white;
+    -fx-alignment: CENTER_RIGHT;
+    -fx-padding: 10;
+}
+
+.login-box {
+    -fx-background-color: #2d3666;
+    -fx-padding: 20;
+    -fx-background-radius: 15;
+}
+
+.login-button {
+    -fx-background-color: #8a8fb5;
+    -fx-text-fill: white;
+    -fx-padding: 8 20 8 20;
+    -fx-background-radius: 20;
+}
+
+
+/* Mevcutları aynen koruyoruz, ek olarak şunları ekliyoruz */
+
+.login-box {
+    -fx-background-color: #2d3666;
+    -fx-padding: 40;
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 10, 0, 0, 5);
+}
+
+.login-button {
+    -fx-background-color: #8a8fb5;
+    -fx-text-fill: white;
+    -fx-padding: 10 30 10 30;
+    -fx-background-radius: 20;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+.help {
+    -fx-font-size: 30px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
