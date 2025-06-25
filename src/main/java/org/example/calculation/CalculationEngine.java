@@ -1,6 +1,6 @@
 package org.example.calculation;
 
-import org.example.model.ACSPLUSInput;
+import org.example.model.CalculationInput;
 
 /**
  * CalculationEngine defines the contract for performing HVAC calculations
@@ -13,5 +13,5 @@ public interface CalculationEngine {
      * @param input the set of parameters required for calculation
      * @return a CalculationResult containing all computed values
      */
-    CalculationResult calculate(ACSPLUSInput input);
+    CalculationResult calculate(CalculationInput input);
 }

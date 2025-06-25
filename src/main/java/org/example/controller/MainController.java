@@ -10,26 +10,14 @@ import javafx.stage.Stage;
 
 public class MainController {
 
-    @FXML
-    private Button calculationButton;
+    @FXML private Button calculationButton;
+    @FXML private Button reportButton;
+    @FXML private Button priceButton;
+    @FXML private Button userButton;
+    @FXML private Button logoutButton;
+    @FXML private StackPane contentArea;
 
-    @FXML
-    private Button reportButton;
-
-    @FXML
-    private Button priceButton;
-
-    @FXML
-    private Button userButton;
-
-    @FXML
-    private Button logoutButton;
-
-    @FXML
-    private StackPane contentArea;
-
-    private String userRole = "USER"; // default, login sonrası setlenecek
-
+    private String userRole = "USER"; // default, set after login
     private Stage primaryStage;
 
     public void setUserRole(String role) {
@@ -49,7 +37,7 @@ public class MainController {
         calculationButton.setOnAction(e -> loadPage("Calculation.fxml"));
         reportButton.setOnAction(e -> loadPage("Report.fxml"));
         priceButton.setOnAction(e -> loadPage("Price.fxml"));
-        userButton.setOnAction(e -> loadPage("User.fxml"));
+        userButton.setOnAction(e -> loadPage("UserManagement.fxml"));
         logoutButton.setOnAction(e -> logout());
     }
 
@@ -65,9 +53,9 @@ public class MainController {
             contentArea.getChildren().setAll(pane);
         } catch (Exception e) {
             e.printStackTrace();
-            // Burada kullanıcıya anlamlı hata mesajı verebilirsin.
         }
     }
+
 
     private void logout() {
         try {
@@ -83,7 +71,6 @@ public class MainController {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            // Hata mesajı ekleyebilirsin.
         }
     }
 }

@@ -47,7 +47,7 @@
             <PasswordField fx:id="passwordField" prefWidth="200" />
         </HBox>
 
-        <Button fx:id="loginButton" text="OK" prefWidth="100" style="-fx-background-color: #8894b2; -fx-text-fill: white; -fx-background-radius: 15;" />
+        <Button fx:id="loginButton" onAction="#onLogin" text="OK" prefWidth="100" style="-fx-background-color: #8894b2; -fx-text-fill: white; -fx-background-radius: 15;" />
     </VBox>
 
     <!-- Yardım İkonu -->

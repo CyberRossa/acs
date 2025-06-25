@@ -1,81 +1,49 @@
 package org.example.dao;
 
+
 import org.example.services.DatabaseService;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class CountryDAO {
     private final DatabaseService db;
 
-    public CountryDAO(DatabaseService databaseService) {
-        this.db = databaseService;
+    public CountryDAO(DatabaseService db) {
+        this.db = db;
         createTableIfNotExists();
     }
 
     private void createTableIfNotExists() {
         String sql = """
-            
-                CREATE TABLE IF NOT EXISTS countries (
-              code TEXT PRIMARY KEY,
-              name TEXT NOT NULL
-            );
-            """;
-        try (Connection c = db.getConnection();
-             Statement s = c.createStatement()) {
+        CREATE TABLE IF NOT EXISTS countries (
+            country_name VARCHAR(100) PRIMARY KEY
+        )
+        """;
+        try (Connection c = db.getConnection(); Statement s = c.createStatement()) {
             s.execute(sql);
         } catch (SQLException e) {
-            throw new RuntimeException("countries tablosu oluşturulamadı", e);
+            throw new RuntimeException("Failed to create countries table", e);
         }
     }
 
     /**
-     * Tüm ülke kodlarını döner (örn. "TR", "US", ...)
+     * Returns all countries ordered alphabetically.
      */
-    public List<String> findAllCodes() {
-        List<String> codes = new ArrayList<>();
-        String sql = "SELECT code FROM countries ORDER BY code";
+    public List<String> findAll() {
+        List<String> list = new ArrayList<>();
+        String sql = "SELECT country_name FROM countries ORDER BY country_name";
         try (Connection c = db.getConnection();
              Statement s = c.createStatement();
              ResultSet rs = s.executeQuery(sql)) {
             while (rs.next()) {
-                codes.add(rs.getString("code"));
+                list.add(rs.getString("country_name"));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Error querying countries", e);
         }
-        return codes;
+        return list;
     }
-
-    /**
-     * Tüm ülke isimlerini döner (örn. "Türkiye", "United States", ...)
-     */
-    public List<String> findAllNames() {
-        List<String> names = new ArrayList<>();
-        String sql = "SELECT name FROM countries ORDER BY name";
-        try (Connection c = db.getConnection();
-             Statement s = c.createStatement();
-             ResultSet rs = s.executeQuery(sql)) {
-            while (rs.next()) {
-                names.add(rs.getString("name"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return names;
-    }
-
-    public boolean insert(String code, String name) {
-        String sql = "INSERT OR IGNORE INTO countries(code,name) VALUES(?,?)";
-        try (Connection c = db.getConnection();
-             PreparedStatement p = c.prepareStatement(sql)) {
-            p.setString(1, code);
-            p.setString(2, name);
-            return p.executeUpdate() > 0;
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-    }
+}

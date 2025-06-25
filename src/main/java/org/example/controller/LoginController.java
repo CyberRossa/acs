@@ -5,74 +5,58 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import org.example.model.UserData;
-import org.example.services.GlobalServices;
-import org.example.services.UserService;
+import org.example.dao.UserDAO;
+import org.example.model.User;
+import org.example.services.DriverManagerDatabaseService;
+import org.mindrot.jbcrypt.BCrypt;
+import org.example.controller.MainController;
 
 
 public class LoginController {
-
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
-    @FXML private Button loginButton;
-    @FXML private Label messageLabel;
+    @FXML private Label errorLabel;
 
-    private final UserService userService = GlobalServices.getUserService();
+    private UserDAO userDao;
 
     @FXML
-    private void initialize() {
-        loginButton.setOnAction(e -> handleLogin());
+    public void initialize() {
+        // DB servisi
+        var db = new DriverManagerDatabaseService(
+                "jdbc:h2:mem:acsdb;DB_CLOSE_DELAY=-1;MODE=PostgreSQL", "sa", "");
+        userDao = new UserDAO(db);
     }
 
-    private void handleLogin() {
-        String username = usernameField.getText().trim();
-        String password = passwordField.getText();
+    @FXML
+    private void onLogin() {
+        String u = usernameField.getText().trim();
+        String p = passwordField.getText();
 
-        if (username.isEmpty() || password.isEmpty()) {
-            showError("Lütfen kullanıcı adı ve şifreyi doldurun.");
-            return;
-        }
-
-        UserData user = userService.getUserByUsername(username);
-
-        if (user == null) {
-            showError("Kullanıcı bulunamadı.");
-            return;
-        }
-
-        if (userService.validatePassword(user, password)) {
-            openMainWindow(user.getRole());
-        } else {
-            showError("Şifre hatalı.");
-        }
-    }
-
-    private void openMainWindow(String userRole) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Main.fxml"));
-            Parent root = loader.load();
-
-            Stage stage = (Stage) loginButton.getScene().getWindow();
-            Scene scene = new Scene(root);
-
-            stage.setScene(scene);
-
-            MainController mainController = loader.getController();
-            mainController.setUserRole(userRole);
-            mainController.setPrimaryStage(stage);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            messageLabel.setText("Sistem hatası oluştu.");
-        }
-    }
-
-
-    private void showError(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Login Error");
-        alert.setContentText(message);
-        alert.showAndWait();
+        userDao.findByUsername(u).ifPresentOrElse(user -> {
+            if (BCrypt.checkpw(p, user.getPasswordHash())) {
+                // Başarılı: ana ekrana geçiş
+                try {
+                    // Main.fxml’inizi yükleyip sahneyi değiştirin:
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Main.fxml"));
+                    Pane root = loader.load();
+// Burada tip MainController
+                    org.example.controller.MainController mainCtrl = loader.getController();
+                    mainCtrl.setUserRole(user.getRole());
+                    // Yeni sahne:
+                    Stage stage = (Stage) usernameField.getScene().getWindow();
+                    stage.getScene().setRoot(root);
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    errorLabel.setText("Ekran yüklenemedi");
+                }
+            } else {
+                errorLabel.setText("Parola hatalı");
+            }
+        }, () -> {
+            errorLabel.setText("Kullanıcı bulunamadı");
+        });
     }
 }
+
