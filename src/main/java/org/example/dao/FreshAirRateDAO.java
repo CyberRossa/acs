@@ -29,18 +29,18 @@ public class FreshAirRateDAO {
 
     /**
      * Finds the fresh air rate per person for given parameters.
-     * @param country country name
-     * @param city city name
-     * @param sector zone/sector
+     *
+     *
+     * @param city    city name
      * @return Optional of rate (m3/s per person)
      */
-    public Optional<Double> findRatePerPerson(String country, String city, String sector) {
+    public Optional<Double> findRatePerPerson( String city) {
         String sql = "SELECT rate_per_person FROM fresh_air_rate "
-                + "WHERE country_name = ? AND city_name = ? AND sector = ?";
+                + "WHERE  AND city_name = ? ";
         try (Connection c = db.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-            ps.setString(1, country);
-            ps.setString(2, city);
-            ps.setString(3, sector);
+
+            ps.setString(1, city);
+
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     return Optional.of(rs.getDouble("rate_per_person"));

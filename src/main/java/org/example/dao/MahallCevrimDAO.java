@@ -17,7 +17,7 @@ public class MahallCevrimDAO {
     private void createTableIfNotExists() throws SQLException {
         String sql = """
             CREATE TABLE IF NOT EXISTS mahal_cevrim_t_hava (
-              zone_name VARCHAR PRIMARY KEY,
+              zone_name VARCHAR(100) PRIMARY KEY,
               per_person_rate DOUBLE,
               air_changes DOUBLE,
               pressure DOUBLE,

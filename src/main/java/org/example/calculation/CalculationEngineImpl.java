@@ -70,6 +70,7 @@ public class CalculationEngineImpl implements CalculationEngine {
         // 5) Fresh air amount via MAHAL_CEVRIM_T_HAVA
         double freshD = calcFreshAirAmount(in, totalD, entry);
         int    fresh  = (int)Math.round(freshD);
+        System.out.println(in);
         result.setFreshAirAmount(fresh);
         result.setFreshAirRatio((int)Math.ceil((freshD/totalD)*100));
         System.out.println(freshD +"  "+ totalD +"    " +  (freshD/totalD)*100  );
@@ -145,8 +146,9 @@ public class CalculationEngineImpl implements CalculationEngine {
 
         // 3) DB’den son çare oran çek ve uygula
         double fallback = freshAirDao
-                .findRatePerPerson(in.getCountry(), in.getCity(), in.getSector())
+                .findRatePerPerson( in.getCity())
                 .orElse(0.0);
+        System.out.println("fallback fresh air rate: " + fallback);
         return in.getPeopleCount() * fallback;
     }
 
