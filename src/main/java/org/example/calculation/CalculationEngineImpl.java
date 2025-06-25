@@ -1,11 +1,8 @@
 package org.example.calculation;
 
+import org.example.dao.*;
+import org.example.model.EnthalpyEntry;
 import org.example.services.DatabaseService;
-import org.example.dao.EnthalpyCodeDAO;
-import org.example.dao.FreshAirRateDAO;
-import org.example.dao.MahallCevrimDAO;
-import org.example.dao.SummerDesignConditionsDAO;
-import org.example.dao.WinterDesignConditionsDAO;
 import org.example.model.CalculationInput;
 import org.example.calculation.CalculationResult;
 import org.example.model.MahallCevrimEntry;
@@ -24,6 +21,7 @@ public class CalculationEngineImpl implements CalculationEngine {
     private final FreshAirRateDAO freshAirDao;
     private final MahallCevrimDAO mahalCevrimDao;
     private final EnthalpyCodeDAO enthalpyCodeDao;
+    private final EnthalpyTableDAO enthalpyTableDao;
 
     public CalculationEngineImpl(DatabaseService db) throws SQLException {
         this.winterDao       = new WinterDesignConditionsDAO(db);
@@ -31,6 +29,7 @@ public class CalculationEngineImpl implements CalculationEngine {
         this.freshAirDao     = new FreshAirRateDAO(db);
         this.mahalCevrimDao  = new MahallCevrimDAO(db);
         this.enthalpyCodeDao = new EnthalpyCodeDAO(db);
+        this.enthalpyTableDao = new EnthalpyTableDAO(db);
     }
 
     @Override
@@ -73,6 +72,7 @@ public class CalculationEngineImpl implements CalculationEngine {
         int    fresh  = (int)Math.round(freshD);
         result.setFreshAirAmount(fresh);
         result.setFreshAirRatio((int)Math.ceil((freshD/totalD)*100));
+        System.out.println(freshD +"  "+ totalD +"    " +  (freshD/totalD)*100  );
 
         // 6) Aspirator flow (m³/h)
         double aspiratorD    = in.getAspiratorCount() * entry.getMultiplier() * totalD;
@@ -94,22 +94,32 @@ public class CalculationEngineImpl implements CalculationEngine {
 
         // 9) Cooling capacity (kW)
         double coolD = 0;
-        if (in.getWaterCoolerCount()>0) {
+        if (in.getWaterCoolerCount() > 0) {
             int tag = (int)Math.round(TsD) + 3;
-            String code = String.format("%d%d%d%d",
+            String concateCode = String.format("%d%d%d%d",
                     (int)Math.round(outsideSummerDryD),
                     (int)Math.round(outsideSummerWetD),
                     result.getFreshAirRatio(),
-                    tag
+                    (int)Math.round(TsD) + 3
             );
-            double deltaH = enthalpyCodeDao
-                    .findEnthalpyDiff(code)
-                    .orElseThrow(() -> new IllegalArgumentException("Enthalpy diff not found for code " + code));
+
+            System.out.println(result.getFreshAirRatio());
+            System.out.println((int)Math.round(TsD + 3));
+
+            EnthalpyEntry e = enthalpyTableDao
+                    .findByConcate(concateCode)
+                    .orElseThrow(() ->
+                            new IllegalArgumentException("Entalpi kodu bulunamadı: " + concateCode)
+                    );
+
+            double deltaH = e.getEnthalpyDiff();
             coolD = totalD * 1.25 * deltaH;
         }
         result.setCoolingCapacity((int)Math.round(coolD));
 
         return result;
+
+
     }
 
     /**
@@ -120,6 +130,7 @@ public class CalculationEngineImpl implements CalculationEngine {
             double totalAirFlow,
             MahallCevrimEntry entry
     ) {
+        /*
         // 1) air_changes yüzdesiyle hesapla
         double changePct = entry.getAirChanges();   // örn. %20 => 20.0
         if (changePct > 0) {
@@ -130,7 +141,7 @@ public class CalculationEngineImpl implements CalculationEngine {
         double perPerson = entry.getPerPersonRate();
         if (perPerson > 0) {
             return in.getPeopleCount() * perPerson;
-        }
+        }*/
 
         // 3) DB’den son çare oran çek ve uygula
         double fallback = freshAirDao
@@ -138,6 +149,7 @@ public class CalculationEngineImpl implements CalculationEngine {
                 .orElse(0.0);
         return in.getPeopleCount() * fallback;
     }
+
 }
 
 
